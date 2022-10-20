@@ -39,5 +39,14 @@ rb_tree_t *rb_tree_node(rb_tree_t *parent, int value, rb_color_t color);
 int rb_tree_is_valid(const rb_tree_t *tree);
 rb_tree_t *rb_tree_insert(rb_tree_t **tree, int value);
 rb_tree_t *array_to_rb_tree(int *array, size_t size);
+rb_tree_t *rb_tree_remove(rb_tree_t *root, int n);
+void left_rotate(rb_tree_t **tree, rb_tree_t *node);
+void right_rotate(rb_tree_t **tree, rb_tree_t *node);
+rb_tree_t *rb_tree_fix_right_sibling(rb_tree_t **, rb_tree_t *, rb_tree_t *);
+rb_tree_t *rb_tree_fix_left_sibling(rb_tree_t **, rb_tree_t *, rb_tree_t *);
+void rb_tree_remove_fixup(rb_tree_t **tree, rb_tree_t *x, rb_tree_t *x_parent);
+void rb_tree_replace(rb_tree_t **tree, rb_tree_t *before, rb_tree_t *after);
+void rb_tree_remove_node(rb_tree_t **tree, rb_tree_t *z);
+rb_tree_t *inorder_successor(rb_tree_t *z);
 
 #endif /* _RB_TREES_H_ */
