@@ -26,5 +26,12 @@
 	./rb_tree_array
 	rm rb_tree_array
 
+4:
+	cp files/4-main.c .
+	gcc -Wall -Wextra -Werror -pedantic 4-main.c 0-rb_tree_node.c 2-rb_tree_insert.c rb_tree_print.c 4-rb_tree_remove.c -o rb_tree_remove
+	rm 4-main.c
+	./rb_tree_remove
+	rm rb_tree_remove
+
 betty:
 	betty files/*.c *.c *.h
