@@ -176,25 +176,6 @@ void rb_tree_remove_fixup(rb_tree_t **tree, rb_tree_t *x, rb_tree_t *x_parent)
 		x->color = BLACK;
 }
 
-
-/**
- * rb_tree_replace - replaces one node's spot with another
- * @tree: address of pointer to root of tree
- * @before: the node that was in place before
- * @after: the node in place after
- */
-void rb_tree_replace(rb_tree_t **tree, rb_tree_t *before, rb_tree_t *after)
-{
-	if (!before->parent)
-		*tree = after;
-	else if (before == before->parent->left)
-		before->parent->left = after;
-	else
-		before->parent->right = after;
-	if (after)
-		after->parent = before->parent;
-}
-
 /**
  * rb_tree_remove - removes node from rb tree
  * @root: pointer to root of tree
@@ -218,4 +199,53 @@ rb_tree_t *rb_tree_remove(rb_tree_t *root, int n)
 		return (root);
 	rb_tree_remove_node(&root, node);
 	return (root);
+}
+
+/**
+ * rb_tree_remove_node - removes node from rb tree
+ * @tree: address of pointer to root of tree
+ * @z: node to remove
+ */
+void rb_tree_remove_node(rb_tree_t **tree, rb_tree_t *z)
+{
+	rb_tree_t *x, *x_parent = NULL, *y = z;
+	int y_color = y->color;
+
+	if (!z->left)
+	{
+		x = z->right;
+		x_parent = z->parent;
+		rb_tree_replace(tree, z, z->right);
+	}
+	else if (!z->right)
+	{
+		x = z->left;
+		x_parent = z->parent;
+		rb_tree_replace(tree, z, z->left);
+	}
+	else
+	{
+		y = inorder_successor(z);
+		y_color = y->color;
+		x = y->right;
+		if (y->parent == z)
+		{
+			x ? x->parent = y : 0;
+			x_parent = y;
+		}
+		else
+		{
+			rb_tree_replace(tree, y, y->right);
+			x_parent = y->parent;
+			y->right = z->right;
+			y->right->parent = y;
+		}
+		rb_tree_replace(tree, z, y);
+		y->left = z->left;
+		y->left->parent = y;
+		y->color = z->color;
+	}
+	if (y_color >= BLACK)
+		rb_tree_remove_fixup(tree, x, x_parent);
+	free(z);
 }
