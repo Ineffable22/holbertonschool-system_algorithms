@@ -19,5 +19,12 @@
 	./rb_tree_insert
 	rm rb_tree_insert
 
+3:
+	cp files/3-main.c .
+	gcc -Wall -Wextra -Werror -pedantic 3-main.c 0-rb_tree_node.c 2-rb_tree_insert.c 3-array_to_rb_tree.c rb_tree_print.c -o rb_tree_array
+	rm 3-main.c
+	./rb_tree_array
+	rm rb_tree_array
+
 betty:
 	betty files/*.c *.c *.h
