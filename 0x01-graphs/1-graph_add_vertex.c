@@ -24,7 +24,7 @@ vertex_t *graph_add_vertex(graph_t *graph, const char *str)
 	tmp = calloc(1, sizeof(vertex_t));
 	if (tmp == NULL)
 	{
-		/*fprintf(stderr, "Can't malloc\n");*/
+		/* fprintf(stderr, "Can't malloc\n"); */
 		return (NULL);
 	}
 
@@ -32,7 +32,7 @@ vertex_t *graph_add_vertex(graph_t *graph, const char *str)
 	if (tmp->content == NULL)
 	{
 		/* fprintf(stderr, "Can't malloc\n"); */
-		free(tmp->content);
+		free(tmp);
 		return (NULL);
 	}
 	tmp->index = graph->nb_vertices++;
