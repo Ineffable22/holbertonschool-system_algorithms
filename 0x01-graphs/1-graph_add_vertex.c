@@ -31,7 +31,7 @@ vertex_t *graph_add_vertex(graph_t *graph, const char *str)
 	tmp->content = strdup(str);
 	if (tmp->content == NULL)
 	{
-		fprintf(stderr, "Can't malloc\n");
+		/* fprintf(stderr, "Can't malloc\n"); */
 		free(tmp->content);
 		return (NULL);
 	}
