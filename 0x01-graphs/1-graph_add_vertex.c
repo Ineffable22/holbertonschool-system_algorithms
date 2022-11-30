@@ -15,23 +15,25 @@ vertex_t *graph_add_vertex(graph_t *graph, const char *str)
 		return (NULL);
 
 	vertex = graph->vertices;
-	while (vertex && vertex->next)
+	while (vertex)
 	{
 		if (!strcmp(vertex->content, str))
 			return (NULL);
+		if (!vertex->next)
+			break;
 		vertex = vertex->next;
 	}
 	tmp = calloc(1, sizeof(vertex_t));
 	if (tmp == NULL)
 	{
-		/* fprintf(stderr, "Can't malloc\n"); */
+		fprintf(stderr, "Can't malloc\n");
 		return (NULL);
 	}
 
 	tmp->content = strdup(str);
 	if (tmp->content == NULL)
 	{
-		/* fprintf(stderr, "Can't malloc\n"); */
+		fprintf(stderr, "Can't malloc\n");
 		free(tmp);
 		return (NULL);
 	}
