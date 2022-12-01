@@ -16,17 +16,18 @@ int search_depth(char *list, vertex_t *vertex, int depth,
 		  void (*action)(const vertex_t *v, size_t depth))
 {
 	int max = 0, dt = 0;
+	edge_t *edge = NULL;
 
 	if (!vertex)
 		return (0);
 	action(vertex, depth);
 	list[vertex->index] = 1;
 	max = depth;
-	for (; vertex->edges; vertex->edges = vertex->edges->next)
+	for (edge = vertex->edges; edge; edge = edge->next)
 	{
-		if (!list[vertex->edges->dest->index])
+		if (!list[edge->dest->index])
 		{
-			dt = search_depth(list, vertex->edges->dest, depth + 1, action);
+			dt = search_depth(list, edge->dest, depth + 1, action);
 			max = max > dt ? max : dt;
 		}
 	}
