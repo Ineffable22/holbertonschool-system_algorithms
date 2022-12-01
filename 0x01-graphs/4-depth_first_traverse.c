@@ -1,35 +1,36 @@
 #include "graphs.h"
 
-int search_depth(char *list, vertex_t *vertex, int size, int depth,
+/**
+ * search_depth - Search depth
+ * @list: Array with 0s
+ * @depth: Depth number
+ * @vertex: A pointer to vertex
+ * @action: Is a pointer to a function to be called for each visited vertex,
+ * its parameters are:
+ * - v -> A const pointer to the visited vertex
+ * - depth -> The depth of v, from the starting vertex
+ *
+ * Return: Depth
+ */
+int search_depth(char *list, vertex_t *vertex, int depth,
 		  void (*action)(const vertex_t *v, size_t depth))
 {
-	int bol = 0;
+	int max = 0, dt = 0;
 
-	if (size == 0)
+	if (!vertex)
 		return (0);
-
 	action(vertex, depth);
 	list[vertex->index] = 1;
-
-	if (vertex->edges && !list[(int)(vertex->edges->dest->index)])
+	max = depth;
+	for (; vertex->edges; vertex->edges = vertex->edges->next)
 	{
-		depth = search_depth(list, vertex->edges->dest, size - 1,
-				     depth + 1, action);
+		if (!list[vertex->edges->dest->index])
+		{
+			dt = search_depth(list, vertex->edges->dest, depth + 1, action);
+			max = max > dt ? max : dt;
+		}
 	}
-	if (vertex->edges->next && !list[(int)vertex->edges->next->dest->index])
-	{
-		bol = 1;
-		depth = search_depth(list, vertex->edges->next->dest, size,
-				     depth + 1, action);
-	}
-	if (vertex->next && !list[(int)vertex->next->index])
-	{
-		if (bol == 1)
-			search_depth(list, vertex->next, size, 1, action);
-		else
-			depth = search_depth(list, vertex->next, size, depth, action);
-	}
-	return (depth);
+	return (max);
 }
 
 /**
@@ -58,8 +59,7 @@ size_t depth_first_traverse(const graph_t *graph,
 		fprintf(stderr, "Can't malloc\n");
 		return (0);
 	}
-	depth = search_depth(list, graph->vertices, (int)graph->nb_vertices,
-			     0, action);
+	depth = search_depth(list, graph->vertices, 0, action);
 	return (depth);
 
 }
