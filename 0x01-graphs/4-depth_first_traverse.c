@@ -60,6 +60,7 @@ size_t depth_first_traverse(const graph_t *graph,
 		return (0);
 	}
 	depth = search_depth(list, graph->vertices, 0, action);
+	free(list);
 	return (depth);
 
 }
