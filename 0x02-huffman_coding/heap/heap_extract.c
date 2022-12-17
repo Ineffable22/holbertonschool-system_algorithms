@@ -47,6 +47,7 @@ void *heap_extract(heap_t *heap)
 	{
 		free(heap->root);
 		heap->size--;
+		heap->root = NULL;
 		return (data);
 	}
 	for (bit = 1; bit <= heap->size; bit <<= 1)
