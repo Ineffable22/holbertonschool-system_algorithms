@@ -41,7 +41,7 @@ void *heap_extract(heap_t *heap)
 	char *str = NULL;
 	size_t i = 1;
 
-	if (!heap || heap->size <= 0)
+	if (!heap || !heap->root || heap->size <= 0)
 		return (NULL);
 	data = heap->root->data;
 	if (heap->size == 1)
