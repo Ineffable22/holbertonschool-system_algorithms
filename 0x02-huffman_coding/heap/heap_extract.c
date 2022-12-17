@@ -38,8 +38,7 @@ void *heap_extract(heap_t *heap)
 {
 	binary_tree_node_t *node = NULL;
 	void *data = NULL;
-	char *str = NULL;
-	size_t i = 1;
+	size_t bit = 1;
 
 	if (!heap || !heap->root || !heap->data_cmp)
 		return (NULL);
@@ -50,10 +49,11 @@ void *heap_extract(heap_t *heap)
 		heap->size--;
 		return (data);
 	}
-	str = itoa(heap->size, 2);
-	for (node = heap->root; i < strlen(str); i++)
-		node = str[i] == '1' ? node->right : node->left;
-
+	for (bit = 1; bit <= heap->size; bit <<= 1)
+		;
+	bit >>= 2;
+	for (node = heap->root; bit > 0; bit >>= 1)
+		node = heap->size & bit ? node->right : node->left;
 	heap->root->data = node->data;
 	if (node->parent->left == node)
 		node->parent->left = NULL;
