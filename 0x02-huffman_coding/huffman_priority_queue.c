@@ -1,7 +1,7 @@
 #include "huffman.h"
 
 /**
- * int_cmp - Compares two integers
+ * data_cmp - Compares two integers
  *
  * @p1: First pointer
  * @p2: Second pointer
