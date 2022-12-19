@@ -19,6 +19,8 @@ int huffman_extract_and_insert(heap_t *priority_queue)
 
 	node1 = heap_extract(priority_queue);
 	node2 = heap_extract(priority_queue);
+	if (!node1 || !node2)
+		return (0);
 	freq = ((symbol_t *)(node1->data))->freq +
 		((symbol_t *)(node2->data))->freq;
 	symbol = symbol_create(-1, freq);
