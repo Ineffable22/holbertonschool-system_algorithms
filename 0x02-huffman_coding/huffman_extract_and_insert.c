@@ -14,7 +14,7 @@ int huffman_extract_and_insert(heap_t *priority_queue)
 	size_t freq = 0;
 	symbol_t *symbol = NULL;
 
-	if (!priority_queue)
+	if (!priority_queue || priority_queue->size < 2)
 		return (0);
 
 	node1 = heap_extract(priority_queue);
