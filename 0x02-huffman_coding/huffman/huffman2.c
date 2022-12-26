@@ -12,7 +12,7 @@ int checker(int argc, char **argv)
 	if (argc != 4 || strlen(argv[1]) != 1 ||
 	    (*argv[1] != 'c' && *argv[1] != 'd'))
 	{
-		printf("%s <mode> <filename> <out_filename>\n", argv[0]);
+		printf("Usage: huffman <mode> <filename> <out_filename>\n");
 		return (0);
 	}
 
