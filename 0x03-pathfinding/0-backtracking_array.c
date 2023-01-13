@@ -148,7 +148,6 @@ queue_t *backtracking_array(char **map, int rows, int cols,
 
 	if (!map || !rows || !cols || !start || !target)
 		return (NULL);
-
 	queue = queue_create(), back_queue = queue_create();
 	if (!queue || !back_queue)
 	{
@@ -157,7 +156,6 @@ queue_t *backtracking_array(char **map, int rows, int cols,
 	}
 	/* PRINT MAP */
 	/* print_map(map, rows, cols); */
-
 	new_map = copy_map(new_map, map, rows, cols);
 	if (!new_map)
 	{
@@ -165,13 +163,12 @@ queue_t *backtracking_array(char **map, int rows, int cols,
 		fprintf(stderr, "Can not malloc\n");
 		return (NULL);
 	}
-
 	if (!backtrack(new_map, rows, cols, start->x, start->y, target, queue))
 	{
 		while (queue->front)
 			free(dequeue(queue));
-		queue_delete(queue);
-		queue = NULL;
+		queue_delete(queue), queue_delete(back_queue);
+		queue = NULL, back_queue = NULL;
 	}
 	else
 	{
