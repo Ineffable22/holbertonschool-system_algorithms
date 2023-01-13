@@ -36,7 +36,6 @@ void print_map(char **map, int rows, int cols)
 	}
 }
 
-
 /**
  * backtrack - Print and save coordinates recursively with backtracking
  * @map:    Is the pointer to map
@@ -60,35 +59,30 @@ int backtrack(char **map, int rows, int cols,
 	if (x < 0 || y < 0 || x >= rows || y >= cols || map[y][x] != '0')
 		return (0);
 
-	if (map[y][x] == 'X')
-		return (0);
-	map[y][x] = 'X';
+	map[y][x] = '1';
 	/* PRINT MAP */
+	/* if (map[y][x] == 'X')*/
+	/*	return (0);*/
+	/* map[y][x] = 'X'; */
 	/* print_map(map, rows, cols); */
 
-	ptr = malloc(sizeof(point_t));
+	ptr = calloc(sizeof(point_t), 1);
 	if (!ptr)
 	{
 		fprintf(stderr, "Can not malloc\n");
 		return (0);
 	}
 	printf("Checking coordinates [%d, %d]\n", x, y);
+	ptr->x = x, ptr->y = y;
+	queue_push_front(queue, ptr);
 	if (target->x == x && target->y == y)
-	{
-		ptr->x = x, ptr->y = y;
-		queue_push_front(queue, ptr);
 		return (1);
-	}
 
 	if (backtrack(map, rows, cols, x + 1, y, target, queue) ||
 	    backtrack(map, rows, cols, x, y + 1, target, queue) ||
 	    backtrack(map, rows, cols, x - 1, y, target, queue) ||
 	    backtrack(map, rows, cols, x, y - 1, target, queue))
-	{
-		ptr->x = x, ptr->y = y;
-		queue_push_front(queue, ptr);
 		return (1);
-	}
 	free(dequeue(queue));
 	return (0);
 }
@@ -147,14 +141,15 @@ char **copy_map(char **new_map, char **map, int rows, int cols)
 queue_t *backtracking_array(char **map, int rows, int cols,
 			    point_t const *start, point_t const *target)
 {
-	queue_t *queue = NULL;
+	queue_t *queue = NULL, *back_queue = NULL;
 	char **new_map = NULL;
+	point_t *ptr = NULL;
 	int i = 0;
 
 	if (!map || !rows || !cols || !start || !target)
 		return (NULL);
 
-	queue = queue_create();
+	queue = queue_create(), back_queue = queue_create();
 	if (!queue)
 	{
 		fprintf(stderr, "Can not malloc\n");
@@ -178,9 +173,12 @@ queue_t *backtracking_array(char **map, int rows, int cols,
 		queue_delete(queue);
 		queue = NULL;
 	}
+	while ((ptr = dequeue(queue)))
+		queue_push_front(back_queue, ptr);
+	free(queue);
 	for (i = 0; i < rows; i++)
 		free(new_map[i]);
 	free(new_map);
 
-	return (queue);
+	return (back_queue);
 }
