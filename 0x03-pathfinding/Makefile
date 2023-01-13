@@ -12,5 +12,15 @@ LIB = libqueues.a libgraphs.a
 	valgrind ./0-backtracking_array
 	rm 0-backtracking_array
 
+1:
+	$(CC) $(CFLAGS) -o 1-backtracking_graph test/1-main.c 1-backtracking_graph.c $(LIB)
+	./1-backtracking_graph
+	rm 1-backtracking_graph
+
+1val:
+	$(CC) $(CFLAGS) -o 1-backtracking_graph test/1-main.c 1-backtracking_graph.c $(LIB)
+	valgrind ./1-backtracking_graph
+	rm 1-backtracking_graph
+
 betty:
 	betty test/*c *.c *.h
