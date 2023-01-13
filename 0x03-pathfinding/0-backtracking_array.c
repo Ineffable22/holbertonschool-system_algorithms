@@ -66,7 +66,7 @@ int backtrack(char **map, int rows, int cols,
 	/* map[y][x] = 'X'; */
 	/* print_map(map, rows, cols); */
 
-	ptr = calloc(sizeof(point_t), 1);
+	ptr = calloc(1, sizeof(point_t));
 	if (!ptr)
 	{
 		fprintf(stderr, "Can not malloc\n");
@@ -103,7 +103,7 @@ char **copy_map(char **new_map, char **map, int rows, int cols)
 {
 	int i = 0;
 
-	new_map = calloc(sizeof(char *), rows);
+	new_map = calloc(rows, sizeof(char *));
 	if (!new_map)
 	{
 		fprintf(stderr, "Can not malloc\n");
@@ -111,7 +111,7 @@ char **copy_map(char **new_map, char **map, int rows, int cols)
 	}
 	for (i = 0; i < rows; i++)
 	{
-		new_map[i] = calloc(sizeof(char), cols + 1);
+		new_map[i] = calloc(cols + 1, sizeof(char));
 		if (!new_map[i])
 		{
 			for (i--; i >= 0; i--)
