@@ -22,5 +22,25 @@ LIB = libqueues.a libgraphs.a
 	valgrind ./1-backtracking_graph
 	rm 1-backtracking_graph
 
+2:
+	$(CC) $(CFLAGS) -o 2-dijkstra_graph test/2-main.c 2-dijkstra_graph.c $(LIB)
+	./2-dijkstra_graph
+	rm 2-dijkstra_graph
+
+2val:
+	$(CC) $(CFLAGS) -o 2-dijkstra_graph test/2-main.c 2-dijkstra_graph.c $(LIB)
+	valgrind ./2-dijkstra_graph
+	rm 2-dijkstra_graph
+
+2.1:
+	$(CC) $(CFLAGS) -o 2-dijkstra_graph test/2-main_1.c 2-dijkstra_graph.c $(LIB)
+	./2-dijkstra_graph
+	rm 2-dijkstra_graph
+
+2.1val:
+	$(CC) $(CFLAGS) -o 2-dijkstra_graph test/2-main_1.c 2-dijkstra_graph.c $(LIB)
+	valgrind ./2-dijkstra_graph
+	rm 2-dijkstra_graph
+
 betty:
 	betty test/*c *.c *.h
