@@ -71,10 +71,7 @@ int main(void)
 	graph_add_edge(graph, "N", "O", 10, BIDIRECTIONAL);
 	path = dijkstra_graph(graph, start, target);
 	if (!path)
-	{
-		fprintf(stderr, "Failed to retrieve path\n");
-		return (EXIT_FAILURE);
-	}
+		return (fprintf(stderr, "Failed to retrieve path\n"), EXIT_FAILURE);
 	print_free_path(path), graph_delete(graph);
 	return (EXIT_SUCCESS);
 }
