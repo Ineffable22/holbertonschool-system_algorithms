@@ -39,7 +39,8 @@ queue_t *dijkstra_graph(graph_t *graph, vertex_t const *start,
 		printf("Checking %s, distance from %s is %d\n",
 		       v[idx]->content, start->content, dist[idx]);
 		for (edge = v[idx]->edges; edge; edge = edge->next)
-			if (dist[edge->dest->index] != -1 && dist[edge->dest->index] > dist[idx] + edge->weight)
+			if (dist[edge->dest->index] != -1 &&
+			    dist[edge->dest->index] > dist[idx] + edge->weight)
 				dist[edge->dest->index] = dist[idx] + edge->weight,
 					save[edge->dest->index] = v[idx];
 		dist[idx] = -1;
