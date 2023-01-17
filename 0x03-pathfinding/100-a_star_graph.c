@@ -40,7 +40,7 @@ queue_t *a_star_graph(graph_t *graph, vertex_t const *start,
 				min = coor[i], idx = i;
 		if (idx == -1)
 			break;
-		printf("Checking %s, distance from %s is %d\n",
+		printf("Checking %s, distance to %s is %d\n",
 		       v[idx]->content, target->content, Euclidean(v[idx]));
 		for (edge = v[idx]->edges; edge; edge = edge->next)
 			if (dist[edge->dest->index] != -1 &&
