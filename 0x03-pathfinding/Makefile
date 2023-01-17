@@ -42,5 +42,25 @@ LIB = libqueues.a libgraphs.a
 	valgrind ./2-dijkstra_graph
 	rm 2-dijkstra_graph
 
+3:
+	$(CC) $(CFLAGS) -o 100-a_star_graph test/100-main.c 100-a_star_graph.c $(LIB) -lm
+	./100-a_star_graph
+	rm 100-a_star_graph
+
+3val:
+	$(CC) $(CFLAGS) -o 100-a_star_graph test/100-main.c 100-a_star_graph.c $(LIB) -lm
+	valgrind ./100-a_star_graph
+	rm 100-a_star_graph
+
+3.1:
+	$(CC) $(CFLAGS) -o 100-a_star_graph test/100-main_1.c 100-a_star_graph.c $(LIB) -lm
+	./100-a_star_graph
+	rm 100-a_star_graph
+
+3.1val:
+	$(CC) $(CFLAGS) -o 100-a_star_graph test/100-main_1.c 100-a_star_graph.c $(LIB) -lm
+	valgrind ./100-a_star_graph
+	rm 100-a_star_graph
+
 betty:
 	betty test/*c *.c *.h
