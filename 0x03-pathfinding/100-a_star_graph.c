@@ -26,7 +26,7 @@ queue_t *a_star_graph(graph_t *graph, vertex_t const *start,
 	size = (int)graph->nb_vertices;
 	save = calloc(size, sizeof(vertex_t *)), coor = calloc(size, sizeof(int));
 	v = calloc(size, sizeof(vertex_t *)), dist = calloc(size, sizeof(int));
-	if (!save || !dist || !v)
+	if (!save || !coor || !dist || !v)
 		return (fprintf(stderr, "Can not malloc\n"), NULL);
 	for (vertice = graph->vertices; vertice; vertice = vertice->next)
 		dist[vertice->index] = coor[vertice->index] = INT_MAX,
@@ -46,8 +46,8 @@ queue_t *a_star_graph(graph_t *graph, vertex_t const *start,
 			if (dist[edge->dest->index] != -1 &&
 			    dist[edge->dest->index] > dist[idx] + edge->weight)
 				dist[edge->dest->index] = dist[idx] + edge->weight,
-					save[edge->dest->index] = v[idx],
-					coor[edge->dest->index] = dist[edge->dest->index] + Euclidean(edge->dest);
+				save[edge->dest->index] = v[idx],
+				coor[edge->dest->index] = dist[edge->dest->index] + Euclidean(edge->dest);
 	}
 	if (idx != -1)
 		for (queue_push_front(path, strdup(v[idx]->content));
