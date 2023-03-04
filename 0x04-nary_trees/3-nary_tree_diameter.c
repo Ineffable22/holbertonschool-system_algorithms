@@ -7,17 +7,29 @@
  *
  * Return: The maximum value between children and the next nodes
  */
-size_t compute_diameter(nary_tree_t const *root, size_t *diameter)
+size_t compute_diameter(const nary_tree_t *root, size_t *diameter)
 {
-	size_t a = 0, b = 0;
+	size_t max_height1 = 0, max_height2 = 0, height = 0;
+	const nary_tree_t *child = NULL;
 
 	if (!root)
 		return (0);
-	a = compute_diameter(root->children,  &(*diameter));
-	b = compute_diameter(root->next, &(*diameter));
-	(*diameter) = a + b;
-	return (MAX(a, b) + 1);
+
+	for (child = root->children; child; child = child->next)
+	{
+		height = compute_diameter(child, diameter);
+		if (height > max_height1)
+		{
+			max_height2 = max_height1;
+			max_height1 = height;
+		}
+		else if (height > max_height2)
+			max_height2 = height;
+	}
+	*diameter = MAX(*diameter, max_height1 + max_height2);
+	return (MAX(max_height1, max_height2) + 1);
 }
+
 
 /**
  * nary_tree_diameter - Computes the diameter of an N-ary tree
@@ -29,6 +41,6 @@ size_t nary_tree_diameter(nary_tree_t const *root)
 {
 	size_t diameter = 0;
 
-	compute_diameter(root, &diameter);
-	return (root ? diameter - 1 : 0);
+	!root ? diameter-- : compute_diameter(root, &diameter);
+	return (diameter + 1);
 }
